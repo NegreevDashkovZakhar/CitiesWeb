@@ -1,6 +1,8 @@
 ﻿using CitiesWeb.Database.contexts;
 using CitiesWeb.Database.models;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Cors;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
@@ -13,11 +15,12 @@ namespace CitiesWeb.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class WeatherForecastController : ControllerBase
+    [EnableCors()]
+    public class CitiesController : ControllerBase
     {
         private CityContext cityContext;
 
-        public WeatherForecastController()
+        public CitiesController()
         {
             cityContext = new CityContext();
         }

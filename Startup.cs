@@ -19,6 +19,7 @@ namespace CitiesWeb
         {
             Configuration = configuration;
         }
+        private string corsName = "_myCorsName";
 
         public IConfiguration Configuration { get; }
 
@@ -26,6 +27,16 @@ namespace CitiesWeb
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: corsName,
+                                  policy =>
+                                  {
+                                      policy.AllowAnyOrigin()
+                                      .AllowAnyMethod()
+                                      .AllowAnyHeader();
+                                  });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -41,6 +52,8 @@ namespace CitiesWeb
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseCors(corsName);
 
             app.UseEndpoints(endpoints =>
             {
